@@ -1,24 +1,42 @@
-# README
+ルートにアクセスした時の処理の流れ
+[route.rb]
+  root to: redirect('/todos')
+  get 'todos', to: 'site#index' *全部'site#index'に流す
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+'site#index' => siteコントローラのindexアクション  
+[site/index.html.erb]
+ <div id="root"></div>を生成
 
-* Ruby version
+application.html.erb
+<%= javascript_pack_tag 'index' %>
+[index.jsx]
+ReactDOM.render(第一引数、第二引数)
+第一引数にコンポーネント
+第二引数にコンポーネントの描画先を指定 (今回は site/index.html.erb の <div id="root"></div>)
 
-* System dependencies
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <BrowserRouter>
+    <App/>
 
-* Configuration
+[App.js]
+ヘッダー生成、描画
+  import { Switch, Route, Link } from 'react-router-dom'
+  によって使えるこのようにルーティングが書ける
+      <Switch>
+          <Route exact path="/todos" component={TodoList} />
 
-* Database creation
+  "/todos"の場合、TodoListを描画する
 
-* Database initialization
+[TodoList.js]
 
-* How to run the test suite
+useEffect
+  axiosがサーバ(rails)に話しかける
+  jsonを受け取る
+  useStateによって const todosに受け取ったjsonが格納される
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+フォームに入力された内容に応じて、
+todos.filterした結果　(ここがインクリメンタルサーチ機能)
+をそのままチェーンでmapし、
+チェックボックスと編集ボタンと共にtodosが一覧表示される

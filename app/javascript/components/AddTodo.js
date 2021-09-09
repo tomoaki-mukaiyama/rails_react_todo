@@ -47,6 +47,7 @@ function AddTodo(props) {
     name: "",
     is_completed: false
   }
+  
   const [todo, setTodo] = useState(initialTodoState)
 
   const handleInputChange = event => {
@@ -55,7 +56,7 @@ function AddTodo(props) {
   }
 
   const notify = () => {
-    toast.success('Todo successfully created', {
+    toast.success('Todo successfully created!', {
       position: 'bottom-center',
       hideProgressBar: true
     })

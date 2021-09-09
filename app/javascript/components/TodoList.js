@@ -111,51 +111,51 @@ function TodoList() {
 
   return (
     <>
-    <h1>Todo List</h1>
-    <SearchAndButton>
-      <SearchForm
-      type="test"
-      placeholder="Search todo..."
-      onChange={event => {
-        setSearchName(event.target.value)
-      }}
-      />
-      <RemoveAllButton onClick={removeAllTodos}>
-        Remove All
-      </RemoveAllButton>
-    </SearchAndButton>
+      <h1>Todo List</h1>
+      <SearchAndButton>
+        <SearchForm
+        type="test"
+        placeholder="Search todo..."
+        onChange={event => {
+          setSearchName(event.target.value)
+        }}
+        />
+        <RemoveAllButton onClick={removeAllTodos}>
+          Remove All
+        </RemoveAllButton>
+      </SearchAndButton>
 
-    <div>
-      {todos.filter((val) => {
-        if(searchName === "") {
-          return val
-        } else if (val.name.toLowerCase().includes(searchName.toLowerCase())) {
-          return val
-        }
-      }).map((val, key) => {
-        return (
-          <Row key={key}>
-            {val.is_completed ? (
-              <CheckedBox>
-                <ImCheckboxChecked onClick={() => updateIsCompleted(key, val)}/>
-              </CheckedBox>
-            ) : (
-              <UncheckedBox>
-                <ImCheckboxUnchecked onClick={() => updateIsCompleted(key, val)}/>
-              </UncheckedBox>
-            )}
-            <TodoName is_completed={val.is_completed}>
-              {val.name}  
-            </TodoName>
-            <Link to={"/todos" + val.id + "/edit"}>
-              <EditButton>
-                <AiFillEdit />
-              </EditButton>
-            </Link>
-          </Row>
-        )
-      })}
-    </div>
+      <div>
+        {todos.filter((val) => {
+          if(searchName === "") {
+            return val
+          } else if (val.name.toLowerCase().includes(searchName.toLowerCase())) {
+            return val
+          }
+        }).map((val, key) => {
+          return (
+            <Row key={key}>
+              {val.is_completed ? (
+                <CheckedBox>
+                  <ImCheckboxChecked onClick={() => updateIsCompleted(key, val)}/>
+                </CheckedBox>
+              ) : (
+                <UncheckedBox>
+                  <ImCheckboxUnchecked onClick={() => updateIsCompleted(key, val)}/>
+                </UncheckedBox>
+              )}
+              <TodoName is_completed={val.is_completed}>
+                {val.name}  
+              </TodoName>
+              <Link to={"/todos/" + val.id + "/edit"}>
+                <EditButton>
+                  <AiFillEdit />
+                </EditButton>
+              </Link>
+            </Row>
+          )
+        })}
+      </div>
     </>
   )
 }
